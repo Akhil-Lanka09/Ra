@@ -1,0 +1,112 @@
+.slider {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  max-height: 560px;
+  overflow: hidden;
+  background: #1a0a0a;
+}
+
+/* Image wrapper fills the container */
+.imgWrap {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.35s ease;
+}
+
+.imgVisible { opacity: 1; }
+.imgHidden  { opacity: 0; }
+
+/* CTA button - bottom-left */
+.cta {
+  position: absolute;
+  bottom: 18px;
+  left: 5vw;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.ctaVisible { opacity: 1; }
+.ctaHidden  { opacity: 0; }
+
+.ctaBtn {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 1.5px solid;
+  border-radius: 4px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.ctaBtn:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-2px);
+}
+
+/* Dots */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  right: 5vw;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s;
+}
+
+.dot:hover { border-color: rgba(255, 255, 255, 0.9); }
+
+.dotActive {
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Progress bar */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  z-index: 3;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 0 2px 2px 0;
+  animation: progress 3.5s linear forwards;
+}
+
+@keyframes progress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .slider { aspect-ratio: 4 / 3; max-height: 400px; }
+  .ctaBtn { font-size: 0.7rem; padding: 8px 16px; }
+}
+
+@media (max-width: 480px) {
+  .slider { aspect-ratio: 1 / 1; max-height: 360px; }
+}
