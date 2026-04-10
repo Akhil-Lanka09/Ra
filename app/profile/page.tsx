@@ -44,7 +44,7 @@ export default function ProfilePage() {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <div className={styles.hero} style={{ background: "linear-gradient(135deg,rgba(30,6,3,0.85),rgba(59,13,13,0.80)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400&q=80') center/cover no-repeat" }}>
+      <div className={styles.hero} style={{ background: "linear-gradient(135deg, #3b0d0d 0%, #1a0a0a 100%)" }}>
         <div className="hero-deco">👤</div>
         <div className="hero-rule" style={{ background: 'var(--saffron)' }} />
         <div className="hero-eyebrow">Account</div>

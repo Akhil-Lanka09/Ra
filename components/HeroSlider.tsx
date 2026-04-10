@@ -10,6 +10,7 @@ const slides = [
     src: '/hero_mango_page.png',
     accent: '#c8860a',
     label: 'Summer Specials',
+    subtitle: 'Farm-fresh Andhra mangoes — naturally ripened, handpicked, delivered.',
     cta: 'Shop Mangoes',
   },
   {
@@ -17,6 +18,7 @@ const slides = [
     src: '/hero_pickles_page.png',
     accent: '#c8860a',
     label: 'Andhra Pickles',
+    subtitle: 'Handmade with cold-pressed oil, whole spices & zero preservatives.',
     cta: 'Shop Pickles',
   },
   {
@@ -24,6 +26,7 @@ const slides = [
     src: '/hero_honey_page.png',
     accent: '#e8a020',
     label: 'Raw Honey',
+    subtitle: 'Pure, unfiltered & unprocessed — straight from the hive to your home.',
     cta: 'Shop Honey',
   },
   {
@@ -31,6 +34,7 @@ const slides = [
     src: '/hero_ghee_page.png',
     accent: '#c8860a',
     label: 'Premium Ghee',
+    subtitle: 'Hand-churned A2 Bilona ghee — traditional, pure & unadulterated.',
     cta: 'Shop Ghee',
   },
   {
@@ -38,6 +42,7 @@ const slides = [
     src: '/hero_juices_page.png',
     accent: '#3a9e6f',
     label: 'Raw Juices',
+    subtitle: 'Cold-pressed. No sugar. No preservatives. Just pure fruit.',
     cta: 'Shop Juices',
   },
 ];
@@ -81,8 +86,14 @@ export default function HeroSlider() {
         />
       </div>
 
-      {/* CTA bottom-left */}
-      <div className={`${styles.cta} ${visible ? styles.ctaVisible : styles.ctaHidden}`}>
+      {/* Dark gradient overlay for text readability */}
+      <div className={styles.overlay} />
+
+      {/* Text content */}
+      <div className={`${styles.textContent} ${visible ? styles.ctaVisible : styles.ctaHidden}`}>
+        <div className={styles.eyebrow} style={{ color: slide.accent }}>Raasa Harvest</div>
+        <h2 className={styles.slideTitle}>{slide.label}</h2>
+        <p className={styles.slideSubtitle}>{slide.subtitle}</p>
         <Link href={slide.href} className={styles.ctaBtn} style={{ borderColor: slide.accent, color: slide.accent }}>
           {slide.cta} →
         </Link>

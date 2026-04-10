@@ -123,8 +123,7 @@ export default function Home() {
             href="https://wa.me/919849048999"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
-            style={{ fontSize: '1rem', padding: '16px 40px' }}
+            className={styles.whatsappBtn}
           >
             <WhatsAppIcon /> &nbsp;WhatsApp Us Now
           </a>

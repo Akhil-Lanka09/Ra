@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
 
 export type CartItem = {
   id: string;
@@ -27,8 +27,19 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const stored = localStorage.getItem('raasa_cart');
+      return stored ? JSON.parse(stored) : [];
+    } catch { return []; }
+  });
   const [toast, setToast] = useState<string | null>(null);
+
+  // Persist cart to localStorage on every change
+  useEffect(() => {
+    try { localStorage.setItem('raasa_cart', JSON.stringify(items)); } catch {}
+  }, [items]);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);

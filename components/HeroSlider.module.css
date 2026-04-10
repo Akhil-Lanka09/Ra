@@ -17,18 +17,65 @@
 .imgVisible { opacity: 1; }
 .imgHidden  { opacity: 0; }
 
-/* CTA button - bottom-left */
-.cta {
+/* Dark gradient overlay for text readability */
+.overlay {
   position: absolute;
-  bottom: 18px;
-  left: 5vw;
-  z-index: 2;
-  transition: opacity 0.3s ease;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 3, 3, 0.82) 0%,
+    rgba(10, 3, 3, 0.55) 50%,
+    rgba(10, 3, 3, 0.15) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
 }
 
-.ctaVisible { opacity: 1; }
-.ctaHidden  { opacity: 0; }
+/* Text content block - positioned left */
+.textContent {
+  position: absolute;
+  bottom: 60px;
+  left: 5vw;
+  z-index: 2;
+  max-width: 520px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
 
+.ctaVisible { opacity: 1; transform: translateY(0); }
+.ctaHidden  { opacity: 0; transform: translateY(10px); }
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+/* Slide title */
+.slideTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.12;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+/* Slide subtitle */
+.slideSubtitle {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 20px;
+  max-width: 420px;
+}
+
+/* CTA button */
 .ctaBtn {
   display: inline-block;
   padding: 10px 22px;
@@ -103,10 +150,15 @@
 }
 
 @media (max-width: 768px) {
-  .slider { aspect-ratio: 4 / 3; max-height: 400px; }
+  .slider { aspect-ratio: 4 / 3; max-height: 420px; }
   .ctaBtn { font-size: 0.7rem; padding: 8px 16px; }
+  .slideTitle { font-size: clamp(1.6rem, 5vw, 2.4rem); }
+  .slideSubtitle { font-size: 0.8rem; }
+  .textContent { bottom: 48px; max-width: 70%; }
 }
 
 @media (max-width: 480px) {
-  .slider { aspect-ratio: 1 / 1; max-height: 360px; }
+  .slider { aspect-ratio: 1 / 1; max-height: 380px; }
+  .textContent { bottom: 40px; max-width: 80%; }
+  .slideSubtitle { display: none; }
 }
