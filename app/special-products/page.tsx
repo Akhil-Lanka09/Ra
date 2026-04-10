@@ -19,7 +19,7 @@ export default function SpecialProductsPage() {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <div className={styles.hero} style={{ background: `linear-gradient(rgba(20,12,0,0.55), rgba(20,12,0,0.55)), url('/hero_ghee_page.jpg') center/cover no-repeat` }}>
+      <div className={styles.hero} style={{ background: `linear-gradient(rgba(20,12,0,0.55), rgba(20,12,0,0.55)), url('/hero_ghee_page.png') center/cover no-repeat` }}>
         <div className="hero-deco">🧈</div>
         <div className="hero-rule" style={{ background: 'var(--saffron)' }} />
         <div className="hero-eyebrow">Pure & Traditional</div>

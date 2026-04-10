@@ -16,7 +16,7 @@ export default function SummerSpecialsPage() {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <div className={styles.hero} style={{ background: `linear-gradient(rgba(59,13,13,0.65), rgba(59,13,13,0.65)), url('/hero_mango_page.jpg') center/cover no-repeat` }}>
+      <div className={styles.hero} style={{ background: `linear-gradient(rgba(59,13,13,0.65), rgba(59,13,13,0.65)), url('/hero_mango_page.png') center/cover no-repeat` }}>
         <div className="hero-deco">🥭</div>
         <div className="hero-rule" style={{ background: 'var(--saffron)' }} />
         <div className="hero-eyebrow">Summer Specials</div>

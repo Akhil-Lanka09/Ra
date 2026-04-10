@@ -16,7 +16,7 @@ export default function JuicesPage() {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <div className={styles.hero} style={{ background: `linear-gradient(rgba(0,26,14,0.55), rgba(0,26,14,0.55)), url('/hero_juices_page.jpg') center/cover no-repeat` }}>
+      <div className={styles.hero} style={{ background: `linear-gradient(rgba(0,26,14,0.55), rgba(0,26,14,0.55)), url('/hero_juices_page.png') center/cover no-repeat` }}>
         <div className="hero-deco">🧃</div>
         <div className="hero-rule" style={{ background: '#3a9e6f' }} />
         <div className="hero-eyebrow">Cold-Pressed · Pure · Natural</div>

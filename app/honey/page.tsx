@@ -1,4 +1,4 @@
-import ProductCard from '@/components/ProductCard';
+import HoneyCard from '@/components/HoneyCard';
 import { honeyProducts } from '@/data/honey-products';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import styles from './page.module.css';
@@ -16,7 +16,7 @@ export default function HoneyPage() {
   return (
     <div className="page-enter">
       {/* Hero */}
-      <div className={styles.hero} style={{ background: `linear-gradient(rgba(30,20,0,0.55), rgba(30,20,0,0.55)), url('/hero_honey_page.jpg') center/cover no-repeat` }}>
+      <div className={styles.hero} style={{ background: `linear-gradient(rgba(30,20,0,0.55), rgba(30,20,0,0.55)), url('/hero_honey_page.png') center/cover no-repeat` }}>
         <div className="hero-deco">🍯</div>
         <div className="hero-rule" style={{ background: 'var(--saffron)' }} />
         <div className="hero-eyebrow">Pure · Raw · Unprocessed</div>
@@ -56,7 +56,7 @@ export default function HoneyPage() {
         </div>
         <div className={styles.productRow}>
           {honeyProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
+            <HoneyCard key={product.id} product={product} />
           ))}
         </div>
       </section>
