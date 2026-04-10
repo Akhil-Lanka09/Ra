@@ -34,15 +34,15 @@
 /* Text content block - positioned left */
 .textContent {
   position: absolute;
-  bottom: 60px;
+  top: 50%;
   left: 5vw;
   z-index: 2;
   max-width: 520px;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.ctaVisible { opacity: 1; transform: translateY(0); }
-.ctaHidden  { opacity: 0; transform: translateY(10px); }
+.ctaVisible { opacity: 1; transform: translateY(-50%); }
+.ctaHidden  { opacity: 0; transform: translateY(calc(-50% + 10px)); }
 
 /* Eyebrow label */
 .eyebrow {
@@ -154,11 +154,11 @@
   .ctaBtn { font-size: 0.7rem; padding: 8px 16px; }
   .slideTitle { font-size: clamp(1.6rem, 5vw, 2.4rem); }
   .slideSubtitle { font-size: 0.8rem; }
-  .textContent { bottom: 48px; max-width: 70%; }
+  .textContent { max-width: 70%; }
 }
 
 @media (max-width: 480px) {
   .slider { aspect-ratio: 1 / 1; max-height: 380px; }
-  .textContent { bottom: 40px; max-width: 80%; }
+  .textContent { max-width: 80%; }
   .slideSubtitle { display: none; }
 }

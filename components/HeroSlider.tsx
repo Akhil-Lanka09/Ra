@@ -9,40 +9,45 @@ const slides = [
     href: '/summer-specials',
     src: '/hero_mango_page.png',
     accent: '#c8860a',
-    label: 'Summer Specials',
-    subtitle: 'Farm-fresh Andhra mangoes — naturally ripened, handpicked, delivered.',
+    eyebrow: 'Summer Specials',
+    label: 'The Mango Festival',
+    subtitle: 'Experience the authentic taste of Indian summers. 9 premium varieties of naturally ripened, farm-fresh mangoes directly from the best orchards.',
     cta: 'Shop Mangoes',
   },
   {
     href: '/pickles',
     src: '/hero_pickles_page.png',
     accent: '#c8860a',
+    eyebrow: 'Handmade & Authentic',
     label: 'Andhra Pickles',
-    subtitle: 'Handmade with cold-pressed oil, whole spices & zero preservatives.',
+    subtitle: 'Made fresh in small batches using cold-pressed peanut oil, whole spices, zero preservatives. The real taste of Andhra on your table.',
     cta: 'Shop Pickles',
   },
   {
     href: '/honey',
     src: '/hero_honey_page.png',
     accent: '#e8a020',
-    label: 'Raw Honey',
-    subtitle: 'Pure, unfiltered & unprocessed — straight from the hive to your home.',
+    eyebrow: 'Pure · Raw · Unprocessed',
+    label: 'Raasa Honey',
+    subtitle: 'Real honey straight from the hive — never heated, never filtered, never adulterated. Two exquisite varieties, each with its own character.',
     cta: 'Shop Honey',
   },
   {
     href: '/special-products',
     src: '/hero_ghee_page.png',
     accent: '#c8860a',
+    eyebrow: 'Pure & Traditional',
     label: 'Premium Ghee',
-    subtitle: 'Hand-churned A2 Bilona ghee — traditional, pure & unadulterated.',
+    subtitle: 'Hand-churned using the ancient Bilona method from A2 milk — nothing added, nothing removed. The way ghee has been made for centuries.',
     cta: 'Shop Ghee',
   },
   {
     href: '/juices',
     src: '/hero_juices_page.png',
     accent: '#3a9e6f',
+    eyebrow: 'Cold-Pressed · Pure · Natural',
     label: 'Raw Juices',
-    subtitle: 'Cold-pressed. No sugar. No preservatives. Just pure fruit.',
+    subtitle: 'Just fruit. Nothing else. No sugar, no preservatives, no additives — cold-pressed and frozen fresh to lock in every bit of flavour.',
     cta: 'Shop Juices',
   },
 ];
@@ -91,7 +96,7 @@ export default function HeroSlider() {
 
       {/* Text content */}
       <div className={`${styles.textContent} ${visible ? styles.ctaVisible : styles.ctaHidden}`}>
-        <div className={styles.eyebrow} style={{ color: slide.accent }}>Raasa Harvest</div>
+        <div className={styles.eyebrow} style={{ color: slide.accent }}>{slide.eyebrow}</div>
         <h2 className={styles.slideTitle}>{slide.label}</h2>
         <p className={styles.slideSubtitle}>{slide.subtitle}</p>
         <Link href={slide.href} className={styles.ctaBtn} style={{ borderColor: slide.accent, color: slide.accent }}>

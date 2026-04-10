@@ -91,7 +91,7 @@ export const pickleProducts: GenericProduct[] = [
     subtitle: 'Raw Mango Pickle',
     desc: 'Classic raw mango pickle made with firm, tangy green mangoes, chilli powder, and whole spices in peanut oil. Sharp, punchy, and deeply satisfying — a timeless Andhra favourite.',
     emoji: '🥭',
-    image: '/tomato_pickle.jpg',
+    image: '/mango_pickle.jpg',
     badges: ['Seasonal', 'No Preservatives'],
     sizes: [
       { label: '250 g', price: 159 },
@@ -105,7 +105,7 @@ export const pickleProducts: GenericProduct[] = [
     subtitle: 'Whole Raw Mango Pickle',
     desc: 'Traditional whole baby mango pickle — each piece soaked in spiced peanut oil with mustard, fenugreek, and red chilli. Bold, assertive flavour that improves with time.',
     emoji: '🫙',
-    image: '/allam_pickle.jpg',
+    image: '/magaya_pachadi.jpg',
     badges: ['Traditional', 'No Preservatives'],
     sizes: [
       { label: '250 g', price: 279 },
@@ -119,7 +119,7 @@ export const pickleProducts: GenericProduct[] = [
     subtitle: 'Tender Raw Mango Pickle',
     desc: 'Made from tender young mango pieces (koru), pickled in peanut oil with coarsely ground spices. Milder than Magaya but full of character — a rare find and a household treasure.',
     emoji: '🌿',
-    image: '/gongura_pickle.jpg',
+    image: '/koru_pachadi.jpg',
     badges: ['Rare Variety', 'No Preservatives'],
     sizes: [
       { label: '250 g', price: 239 },
