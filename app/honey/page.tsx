@@ -1,4 +1,4 @@
-import HoneyCard from '@/components/HoneyCard';
+import ProductCard from '@/components/ProductCard';
 import { honeyProducts } from '@/data/honey-products';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import styles from './page.module.css';
@@ -56,7 +56,7 @@ export default function HoneyPage() {
         </div>
         <div className={styles.productRow}>
           {honeyProducts.map(product => (
-            <HoneyCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
