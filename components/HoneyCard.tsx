@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { GenericProduct } from '@/components/ProductCard';
 import styles from './HoneyCard.module.css';
@@ -25,7 +26,12 @@ export default function HoneyCard({ product }: { product: GenericProduct }) {
     <div className={styles.card}>
       <div className={styles.imgWrap}>
         {product.image
-          ? <img src={product.image} alt={product.name} className={styles.img} />
+          ? (
+            <>
+              {/* ⚡ Bolt: Replaced <img> with next/image for automatic lazy loading, WebP conversion, and optimized sizing */}
+              <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className={styles.img} />
+            </>
+          )
           : <span style={{ fontSize: '4rem' }}>{product.emoji}</span>
         }
         {product.badges && (
