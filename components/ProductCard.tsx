@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import styles from './PantryCard.module.css';
 
@@ -36,7 +37,12 @@ export default function ProductCard({ product }: { product: GenericProduct }) {
     <div className={styles.card}>
       <div className={styles.imgWrap} style={!product.image ? { display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem', background: 'var(--ivory2)' } : {}}>
         {product.image
-          ? <img src={product.image} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }} />
+          ? (
+            <>
+              {/* ⚡ Bolt: Replaced <img> with next/image for automatic lazy loading, WebP conversion, and optimized sizing */}
+              <Image src={product.image} alt={product.name} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className={styles.img} style={{ objectFit: 'cover' }} />
+            </>
+          )
           : <span>{product.emoji}</span>
         }
         {product.badges && (
