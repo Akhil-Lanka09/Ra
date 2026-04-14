@@ -93,11 +93,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                    <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)} aria-label={`Decrease quantity of ${item.name} by 1`}>−</button>
+                    <span className={styles.qtyNum} aria-live="polite" aria-atomic="true">{item.qty}</span>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)} aria-label={`Increase quantity of ${item.name} by 1`}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove" aria-label={`Remove ${item.name} from cart`}>✕</button>
                 </div>
               );
             })}

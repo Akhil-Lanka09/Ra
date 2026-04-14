@@ -1,0 +1,3 @@
+## 2024-05-18 - Added ARIA labels to cart controls
+**Learning:** Icon-only buttons (like quantity controls +, - and remove ✕) lacked descriptive labels for screen readers. The quantity itself was also not announced when it changed.
+**Action:** Always verify that icon-only buttons have an `aria-label` attribute and that dynamically changing regions (like item count) have `aria-live="polite"` so screen readers can interpret changes dynamically. Adding these features within existing UI elements using inline props or standard react syntax without custom CSS modifications proved successful in providing the needed context.
