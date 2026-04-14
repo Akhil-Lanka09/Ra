@@ -1,0 +1,4 @@
+## 2024-05-18 - Missing Global Security Headers in Next.js App
+**Vulnerability:** The application was missing fundamental HTTP security headers, leaving it vulnerable to Clickjacking (missing X-Frame-Options), MIME-type sniffing (missing X-Content-Type-Options), and potentially missing HSTS protections across the entire application footprint.
+**Learning:** Next.js applications do not include comprehensive security headers by default. They must be explicitly configured in `next.config.js` via the `headers()` async function to ensure they are applied to all routes (`/(.*)`).
+**Prevention:** Establish a baseline Next.js configuration template that includes standard security headers (Strict-Transport-Security, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) as a required starting point for all new projects.
