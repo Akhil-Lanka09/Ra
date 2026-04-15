@@ -21,7 +21,7 @@ type CartContextType = {
   clearCart: () => void;
   total: number;
   count: number;
-  toast: string | null;
+  toast: { msg: string; isClosing: boolean; id: number } | null;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -34,7 +34,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return stored ? JSON.parse(stored) : [];
     } catch { return []; }
   });
-  const [toast, setToast] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ msg: string; isClosing: boolean; id: number } | null>(null);
 
   // Persist cart to localStorage on every change
   useEffect(() => {
@@ -42,8 +42,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const showToast = useCallback((msg: string) => {
-    setToast(msg);
-    setTimeout(() => setToast(null), 2500);
+    const id = Date.now();
+    setToast({ msg, isClosing: false, id });
+    setTimeout(() => {
+      setToast(prev => (prev?.id === id ? { ...prev, isClosing: true } : prev));
+      setTimeout(() => setToast(prev => (prev?.id === id ? null : prev)), 300);
+    }, 2500);
   }, []);
 
   const addItem = useCallback((newItem: NewItem) => {
@@ -99,11 +103,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             zIndex: 9999,
             boxShadow: '0 4px 20px rgba(59,13,13,0.4)',
             border: '1px solid rgba(200,134,10,0.3)',
-            animation: 'toastIn 0.3s ease',
+            animation: toast.isClosing ? 'toastOut 0.3s ease forwards' : 'toastIn 0.3s ease',
             maxWidth: '300px',
           }}
         >
-          🛒 &nbsp;{toast}
+          🛒 &nbsp;{toast.msg}
         </div>
       )}
     </CartContext.Provider>
