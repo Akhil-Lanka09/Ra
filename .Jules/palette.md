@@ -1,0 +1,3 @@
+## 2025-02-23 - [Accessible Cart Controls]
+**Learning:** Screen readers need item-specific contexts for repeated list actions (e.g. quantity updates, item removals) to prevent confusion when multiple "+", "-", or "✕" buttons are present in a list. Additionally, updating quantity numbers directly requires `aria-live` and `aria-atomic` on the parent to ensure screen readers announce the numeric updates successfully.
+**Action:** Always provide item-specific `aria-label`s on icon-only or generic-label buttons inside mapped lists (like `aria-label={"Decrease quantity of " + item.name}`). Apply `aria-live="polite" aria-atomic="true"` to dynamic text spans updating in real-time.
