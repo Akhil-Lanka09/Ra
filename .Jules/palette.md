@@ -1,0 +1,3 @@
+## 2025-02-14 - Accessible Cart Destructive Actions
+**Learning:** Found an accessibility issue pattern specific to the cart where icon-only buttons (`+`, `-`, `✕`) lacked ARIA labels, making them invisible to screen readers. Also observed a potentially dangerous UX pattern: the "Clear all" cart button fired instantly with no confirmation, which is prone to accidental clicks in a dense mobile UI.
+**Action:** When adding or modifying interactive lists or carts, always provide `aria-label` for utility buttons. For single-click destructive actions ("Clear all", "Delete"), implement an inline "Confirm" state before executing the action, rather than opening heavy modals or allowing instant deletions.
