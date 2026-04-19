@@ -91,10 +91,11 @@
   align-items: center;
   justify-content: center;
   font-family: 'Jost', sans-serif;
-  transition: all 0.15s;
+  transition: all 0.15s, transform 0.15s;
   line-height: 1;
 }
 .qtyBtn:hover { background: var(--burg); color: var(--saff3); border-color: var(--burg); }
+.qtyBtn:active { transform: scale(0.9); }
 
 .qtyNum {
   font-family: 'DM Mono', monospace;
@@ -111,9 +112,10 @@
   font-size: 0.75rem;
   cursor: pointer;
   padding: 4px;
-  transition: color 0.15s;
+  transition: color 0.15s, transform 0.15s;
 }
-.removeBtn:hover { color: #c01818; }
+.removeBtn:hover { color: #c01818; transform: scale(1.15); }
+.removeBtn:active { transform: scale(0.9); }
 
 /* Summary */
 .summary {
