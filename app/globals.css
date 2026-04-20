@@ -72,6 +72,7 @@ body {
   display: inline-block;
 }
 .btn-primary:hover { background: var(--saff2); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(1px) scale(0.98); }
 
 .btn-secondary {
   padding: 14px 32px;
@@ -90,6 +91,7 @@ body {
   display: inline-block;
 }
 .btn-secondary:hover { background: var(--burg); color: var(--saff3); }
+.btn-secondary:active { transform: translateY(1px) scale(0.98); }
 
 .btn-tertiary {
   padding: 14px 32px;
@@ -108,6 +110,7 @@ body {
   display: inline-block;
 }
 .btn-tertiary:hover { background: var(--fern); transform: translateY(-1px); }
+.btn-tertiary:active { transform: translateY(1px) scale(0.98); }
 
 /* ── BADGE ── */
 .badge {
