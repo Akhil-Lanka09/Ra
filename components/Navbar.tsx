@@ -48,6 +48,7 @@ export default function Navbar() {
           <Link
             href="/cart"
             className={`${styles.tab} ${pathname === '/cart' ? styles.active : ''}`}
+            aria-label={`Cart, ${count} items`}
           >
             🛒&nbsp;Cart
             {count > 0 && <span className={styles.cartBadge}>{count}</span>}
