@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,7 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -72,7 +74,52 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    marginRight: showClearConfirm ? '8px' : '0',
+                    opacity: showClearConfirm ? 1 : 0,
+                    width: showClearConfirm ? 'auto' : '0',
+                    transform: showClearConfirm ? 'translateX(0)' : 'translateX(20px)',
+                    transition: 'all 0.3s ease',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap'
+                  }}
+                  aria-hidden={!showClearConfirm}
+                >
+                  <span style={{ fontSize: '0.8rem', color: 'var(--tm)' }}>Clear cart?</span>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => { clearCart(); setShowClearConfirm(false); }}
+                    style={{ borderColor: '#c01818', color: '#c01818' }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => setShowClearConfirm(false)}
+                  >
+                    No
+                  </button>
+                </div>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => setShowClearConfirm(true)}
+                  style={{
+                    opacity: showClearConfirm ? 0 : 1,
+                    width: showClearConfirm ? '0' : 'auto',
+                    pointerEvents: showClearConfirm ? 'none' : 'auto',
+                    transition: 'all 0.3s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                  aria-expanded={showClearConfirm}
+                >
+                  Clear all
+                </button>
+              </div>
             </div>
 
             {items.map(item => {
@@ -93,11 +140,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                    <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)} aria-label={`Decrease quantity of ${item.name}`}>−</button>
+                    <span className={styles.qtyNum} aria-live="polite">{item.qty}</span>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)} aria-label={`Increase quantity of ${item.name}`}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove" aria-label={`Remove ${item.name} from cart`}>✕</button>
                 </div>
               );
             })}
