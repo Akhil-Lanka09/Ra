@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,7 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -72,7 +74,35 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              {showClearConfirm ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--tl)', opacity: 0, animation: 'cartFadeIn 0.3s forwards' }}>Are you sure?</span>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => {
+                      clearCart();
+                      setShowClearConfirm(false);
+                    }}
+                    style={{ borderColor: '#c01818', color: '#c01818', transform: 'scale(0.95)', transition: 'all 0.2s' }}
+                  >
+                    Yes, clear
+                  </button>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => setShowClearConfirm(false)}
+                    style={{ border: 'none', background: 'none' }}
+                  >
+                    Cancel
+                  </button>
+                  <style>{`
+                    @keyframes cartFadeIn {
+                      to { opacity: 1; }
+                    }
+                  `}</style>
+                </div>
+              ) : (
+                <button className={styles.clearBtn} onClick={() => setShowClearConfirm(true)}>Clear all</button>
+              )}
             </div>
 
             {items.map(item => {
@@ -93,11 +123,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <button className={styles.qtyBtn} aria-label="Decrease quantity" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
                     <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} aria-label="Increase quantity" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} aria-label="Remove item" onClick={() => removeItem(item.id)} title="Remove">✕</button>
                 </div>
               );
             })}
