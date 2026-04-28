@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,7 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -72,7 +74,51 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  opacity: showClearConfirm ? 1 : 0,
+                  transform: showClearConfirm ? 'translateX(0)' : 'translateX(10px)',
+                  pointerEvents: showClearConfirm ? 'auto' : 'none',
+                  transition: 'opacity 0.2s ease, transform 0.2s ease',
+                  position: showClearConfirm ? 'relative' : 'absolute',
+                  right: showClearConfirm ? 'auto' : 0
+                }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--tl)' }}>Clear cart?</span>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => { clearCart(); setShowClearConfirm(false); }}
+                    style={{ borderColor: '#c01818', color: '#c01818' }}
+                    aria-label="Confirm clear cart"
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={styles.clearBtn}
+                    onClick={() => setShowClearConfirm(false)}
+                    aria-label="Cancel clear cart"
+                  >
+                    No
+                  </button>
+                </div>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => setShowClearConfirm(true)}
+                  aria-expanded={showClearConfirm}
+                  style={{
+                    opacity: showClearConfirm ? 0 : 1,
+                    transform: showClearConfirm ? 'translateX(-10px)' : 'translateX(0)',
+                    pointerEvents: showClearConfirm ? 'none' : 'auto',
+                    transition: 'opacity 0.2s ease, transform 0.2s ease',
+                    position: showClearConfirm ? 'absolute' : 'relative',
+                    right: 0
+                  }}
+                >
+                  Clear all
+                </button>
+              </div>
             </div>
 
             {items.map(item => {
