@@ -1,5 +1,6 @@
 'use client';
 import { useCart } from '@/context/CartContext';
+import { useState } from 'react';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import { getGstRate, calcItemGst } from '@/lib/gst';
@@ -7,6 +8,7 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -72,7 +74,52 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => setShowClearConfirm(!showClearConfirm)}
+                  aria-expanded={showClearConfirm}
+                  aria-controls="clear-cart-confirm"
+                >
+                  Clear all
+                </button>
+                <div
+                  id="clear-cart-confirm"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    overflow: 'hidden',
+                    transition: 'max-width 0.3s ease, opacity 0.3s ease',
+                    maxWidth: showClearConfirm ? '150px' : '0px',
+                    opacity: showClearConfirm ? 1 : 0
+                  }}
+                  aria-hidden={!showClearConfirm}
+                >
+                  <span style={{ fontSize: '0.8rem', color: 'var(--tl)' }}>Sure?</span>
+                  <button
+                    className={styles.clearBtn}
+                    style={{ padding: '2px 8px', minWidth: 'auto', borderColor: '#c01818', color: '#c01818' }}
+                    onClick={() => {
+                      clearCart();
+                      setShowClearConfirm(false);
+                    }}
+                    aria-label="Confirm clear cart"
+                    tabIndex={showClearConfirm ? 0 : -1}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    className={styles.clearBtn}
+                    style={{ padding: '2px 8px', minWidth: 'auto' }}
+                    onClick={() => setShowClearConfirm(false)}
+                    aria-label="Cancel clear cart"
+                    tabIndex={showClearConfirm ? 0 : -1}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
             </div>
 
             {items.map(item => {
@@ -93,11 +140,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                    <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} aria-label={`Decrease quantity of ${item.name}`} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <span className={styles.qtyNum} aria-label={`Quantity ${item.qty}`}>{item.qty}</span>
+                    <button className={styles.qtyBtn} aria-label={`Increase quantity of ${item.name}`} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} aria-label={`Remove ${item.name} from cart`} onClick={() => removeItem(item.id)} title="Remove">✕</button>
                 </div>
               );
             })}
