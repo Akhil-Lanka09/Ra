@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,15 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showClearConfirm) {
+      timer = setTimeout(() => setShowClearConfirm(false), 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [showClearConfirm]);
 
   if (items.length === 0) {
     return (
@@ -72,7 +82,28 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <button
+                className={styles.clearBtn}
+                onClick={() => {
+                  if (showClearConfirm) {
+                    clearCart();
+                    setShowClearConfirm(false);
+                  } else {
+                    setShowClearConfirm(true);
+                  }
+                }}
+                style={{
+                  transition: 'all 0.3s ease',
+                  backgroundColor: showClearConfirm ? '#c01818' : 'transparent',
+                  color: showClearConfirm ? '#fff' : 'var(--tl)',
+                  borderColor: showClearConfirm ? '#c01818' : 'rgba(59,13,13,0.2)',
+                  minWidth: showClearConfirm ? '110px' : 'auto'
+                }}
+                aria-label={showClearConfirm ? 'Confirm clear all items' : 'Clear all items'}
+                aria-expanded={showClearConfirm}
+              >
+                {showClearConfirm ? 'Yes, clear' : 'Clear all'}
+              </button>
             </div>
 
             {items.map(item => {
@@ -93,11 +124,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <button className={styles.qtyBtn} aria-label="Decrease quantity" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
                     <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} aria-label="Increase quantity" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove" aria-label={`Remove ${item.name}`}>✕</button>
                 </div>
               );
             })}
