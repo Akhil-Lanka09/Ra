@@ -1,5 +1,6 @@
 'use client';
 import { useCart } from '@/context/CartContext';
+import { useState } from 'react';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
 import { getGstRate, calcItemGst } from '@/lib/gst';
@@ -7,6 +8,7 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [isClearing, setIsClearing] = useState(false);
 
   if (items.length === 0) {
     return (
@@ -72,7 +74,39 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => isClearing ? clearCart() : setIsClearing(true)}
+                  aria-label={isClearing ? "Confirm clear cart" : "Clear all items from cart"}
+                  aria-expanded={isClearing}
+                  style={{
+                    transition: 'all 0.3s ease',
+                    borderColor: isClearing ? '#c01818' : '',
+                    color: isClearing ? '#c01818' : '',
+                  }}
+                >
+                  {isClearing ? "Confirm Clear" : "Clear all"}
+                </button>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => setIsClearing(false)}
+                  aria-label="Cancel clear cart"
+                  style={{
+                    transition: 'all 0.3s ease',
+                    opacity: isClearing ? 1 : 0,
+                    maxWidth: isClearing ? '80px' : '0',
+                    padding: isClearing ? '5px 12px' : '0',
+                    marginLeft: isClearing ? '8px' : '0',
+                    borderWidth: isClearing ? '1px' : '0',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap'
+                  }}
+                  tabIndex={isClearing ? 0 : -1}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
 
             {items.map(item => {
