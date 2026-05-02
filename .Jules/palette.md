@@ -1,0 +1,3 @@
+## 2024-05-02 - Accessible Animated Confirmation for Destructive Actions
+**Learning:** When implementing inline animated confirmations for destructive actions (e.g., "Clear all" cart), avoid changing the button's role to `role="alert"` mid-interaction, as this is an accessibility anti-pattern that can confuse screen readers.
+**Action:** Use React local state to manage the confirmation visually and update the `aria-label` and `aria-expanded` attributes dynamically. Rely on CSS transitions (like `transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'`) applied to the existing component classes to provide smooth visual feedback without disrupting the accessibility tree.
