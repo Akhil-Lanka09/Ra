@@ -1,0 +1,3 @@
+## 2024-05-05 - Animated Inline Confirmation for Cart Emptying
+**Learning:** For destructive actions like clearing a shopping cart, a native browser `window.confirm` is blocking and jarring. Implementing an inline confirmation with a short auto-reset timer and smooth visual transitions provides a much more delightful and safer UX. Furthermore, icon-only buttons (like quantity controls or remove buttons) frequently lack accessibility descriptors.
+**Action:** Next time when dealing with destructive actions, prefer an animated inline confirmation flow over native prompts. Always add descriptive `aria-label`s to any icon-only interactive element to ensure screen reader users understand the button's purpose.
