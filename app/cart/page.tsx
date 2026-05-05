@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,24 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [confirmClear, setConfirmClear] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (confirmClear) {
+      timer = setTimeout(() => setConfirmClear(false), 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [confirmClear]);
+
+  const handleClearClick = () => {
+    if (confirmClear) {
+      clearCart();
+      setConfirmClear(false);
+    } else {
+      setConfirmClear(true);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -72,7 +91,20 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <button
+                className={styles.clearBtn}
+                onClick={handleClearClick}
+                aria-label={confirmClear ? "Confirm clear all items" : "Clear all items"}
+                style={{
+                  transition: 'all 0.3s ease',
+                  backgroundColor: confirmClear ? '#c01818' : '',
+                  color: confirmClear ? '#fff' : '',
+                  borderColor: confirmClear ? '#c01818' : '',
+                  transform: confirmClear ? 'scale(1.05)' : 'scale(1)'
+                }}
+              >
+                {confirmClear ? "Are you sure?" : "Clear all"}
+              </button>
             </div>
 
             {items.map(item => {
@@ -93,11 +125,11 @@ export default function CartPage() {
                     </div>
                   </div>
                   <div className={styles.qtyControl}>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty - 1)} aria-label={`Decrease quantity of ${item.name}`}>−</button>
                     <span className={styles.qtyNum}>{item.qty}</span>
-                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button className={styles.qtyBtn} onClick={() => updateQty(item.id, item.qty + 1)} aria-label={`Increase quantity of ${item.name}`}>+</button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove">✕</button>
+                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)} title="Remove" aria-label={`Remove ${item.name} from cart`}>✕</button>
                 </div>
               );
             })}
