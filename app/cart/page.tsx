@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,29 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [isConfirmingClear, setIsConfirmingClear] = useState(false);
+  const clearTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleClearCartClick = () => {
+    if (!isConfirmingClear) {
+      setIsConfirmingClear(true);
+      clearTimeoutRef.current = setTimeout(() => setIsConfirmingClear(false), 3000);
+    } else {
+      clearCart();
+      setIsConfirmingClear(false);
+      if (clearTimeoutRef.current) {
+        clearTimeout(clearTimeoutRef.current);
+      }
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -72,7 +96,14 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <button
+                className={styles.clearBtn}
+                onClick={handleClearCartClick}
+                aria-label={isConfirmingClear ? "Confirm clear cart" : "Clear all items"}
+                style={isConfirmingClear ? { background: 'var(--saffron)', color: '#fff', borderColor: 'var(--saffron)' } : {}}
+              >
+                {isConfirmingClear ? "Tap again to clear" : "Clear all"}
+              </button>
             </div>
 
             {items.map(item => {
