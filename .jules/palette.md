@@ -1,0 +1,3 @@
+## 2024-05-07 - Animated Inline Confirmations for Destructive Actions
+**Learning:** Immediate destructive actions like "Clear all" in a shopping cart can cause frustration if accidentally clicked. Using blocking browser dialogs (`window.confirm`) breaks immersion and feels outdated. Inline confirmations that transition smoothly provide a much better user experience.
+**Action:** When adding dynamic UI elements like animated confirmations, use local React state (`useState`) and inline CSS transitions on existing UI classes. Ensure accessibility by updating explicit `aria-label` attributes. Do not change `role="alert"` mid-interaction as it's an accessibility anti-pattern.

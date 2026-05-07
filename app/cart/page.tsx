@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import WhatsAppIcon from '@/components/WhatsAppIcon';
@@ -7,6 +8,15 @@ import styles from './page.module.css';
 
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [isConfirmingClear, setIsConfirmingClear] = useState(false);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isConfirmingClear) {
+      timer = setTimeout(() => setIsConfirmingClear(false), 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [isConfirmingClear]);
 
   if (items.length === 0) {
     return (
@@ -72,7 +82,28 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <button
+                className={styles.clearBtn}
+                onClick={() => {
+                  if (isConfirmingClear) {
+                    clearCart();
+                    setIsConfirmingClear(false);
+                  } else {
+                    setIsConfirmingClear(true);
+                  }
+                }}
+                aria-label={isConfirmingClear ? "Confirm clear all items" : "Clear all items"}
+                style={{
+                  backgroundColor: isConfirmingClear ? '#fee2e2' : 'transparent',
+                  borderColor: isConfirmingClear ? '#ef4444' : 'rgba(59,13,13,0.2)',
+                  color: isConfirmingClear ? '#b91c1c' : 'var(--tl)',
+                  fontWeight: isConfirmingClear ? 600 : 400,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: isConfirmingClear ? 'scale(1.05)' : 'scale(1)'
+                }}
+              >
+                {isConfirmingClear ? "Sure?" : "Clear all"}
+              </button>
             </div>
 
             {items.map(item => {
