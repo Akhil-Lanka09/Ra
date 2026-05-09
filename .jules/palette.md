@@ -1,0 +1,3 @@
+## 2024-05-09 - Accessible Screen Reader Elements for Dynamic State Updates
+**Learning:** React 18+ correctly ignores state updates to unmounted components, so simple `setTimeout` usages without `clearTimeout` for UX feedback are non-blocking. Setting `aria-label` directly on generic text spans (e.g. quantity readouts) might be ignored by some screen readers without explicitly adding `role="text"` or `role="status"`.
+**Action:** When adding accessible text to plain `<span>` elements without inherently interactive semantics, include an appropriate role like `role="status"` or convert it into a screen-reader-only accessible span format.
