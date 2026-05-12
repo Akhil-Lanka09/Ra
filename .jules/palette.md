@@ -1,0 +1,3 @@
+## 2024-05-12 - Prevent package lockfile drift during UI changes
+**Learning:** During routine UI changes, running package manager install commands (like `pnpm install`) when node_modules is missing can inadvertently generate or modify lockfiles (e.g., `pnpm-lock.yaml`) which may conflict with the repository's pristine state or code review guidelines if those changes aren't strictly necessary for the PR.
+**Action:** When working on UI-only improvements, avoid committing lockfiles that are incidentally generated during sandbox setup. Explicitly check `git status` and `git checkout` or remove generated lockfiles before submitting code for review.
