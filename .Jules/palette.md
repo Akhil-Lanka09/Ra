@@ -1,0 +1,3 @@
+## 2024-05-13 - Animated Inline Confirmations for Destructive Actions
+**Learning:** Implementing inline confirmation states (e.g., 'Sure?') with CSS transitions (like toggling a CSS module class) provides a significantly smoother user experience compared to abrupt visual changes from raw inline styles or blocking native dialogs like `window.confirm`. Dynamic `aria-label` updates on the button state ensure screen reader users are informed of the changing action.
+**Action:** Use `useState` with `useRef` timers and explicit CSS module classes for destructive action confirmations. Always update the `aria-label` dynamically to match the button's new state/action without changing its base role.
