@@ -71,6 +71,12 @@
   transition: all 0.2s;
 }
 .clearBtn:hover { border-color: #c01818; color: #c01818; }
+.clearConfirm {
+  border-color: #c01818;
+  color: var(--wh);
+  background: #c01818;
+  transform: scale(1.05);
+}
 
 .qtyControl {
   display: flex;
