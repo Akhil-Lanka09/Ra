@@ -72,6 +72,21 @@
 }
 .clearBtn:hover { border-color: #c01818; color: #c01818; }
 
+.clearBtnConfirm {
+  background: none;
+  border: 1px solid #c01818;
+  color: #c01818;
+  font-size: 0.75rem;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.2s;
+}
+.clearBtnConfirm:hover {
+  background: rgba(192, 24, 24, 0.05);
+}
+
 .qtyControl {
   display: flex;
   align-items: center;
