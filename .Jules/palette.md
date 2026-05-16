@@ -1,0 +1,3 @@
+## 2024-05-16 - Animated Confirmation for Destructive Actions
+**Learning:** For destructive UI actions (like clearing the cart), an inline, animated confirmation (e.g., changing button text and styling temporarily) provides a smoother UX than a browser alert or immediate deletion, minimizing accidental actions without disrupting flow.
+**Action:** When adding such states, ensure smooth transitions by toggling a CSS module class (e.g., `.clearConfirming`) with properties like `transform: scale` and `transition` rather than injecting inline styles. Also, remember to clear React timeouts in `useEffect` cleanup to avoid memory leaks.

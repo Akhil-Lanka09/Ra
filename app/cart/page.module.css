@@ -72,6 +72,19 @@
 }
 .clearBtn:hover { border-color: #c01818; color: #c01818; }
 
+.clearConfirming {
+  background: var(--burg);
+  color: var(--saff3);
+  border-color: var(--burg);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(59, 13, 13, 0.2);
+}
+.clearConfirming:hover {
+  background: #c01818;
+  color: #fff;
+  border-color: #c01818;
+}
+
 .qtyControl {
   display: flex;
   align-items: center;
