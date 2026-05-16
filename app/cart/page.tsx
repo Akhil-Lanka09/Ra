@@ -5,8 +5,31 @@ import WhatsAppIcon from '@/components/WhatsAppIcon';
 import { getGstRate, calcItemGst } from '@/lib/gst';
 import styles from './page.module.css';
 
+import { useState, useRef, useEffect } from 'react';
+
 export default function CartPage() {
   const { items, removeItem, updateQty, total, count, clearCart } = useCart();
+  const [confirmClear, setConfirmClear] = useState(false);
+  const clearTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (clearTimerRef.current) clearTimeout(clearTimerRef.current);
+    };
+  }, []);
+
+  const handleClearClick = () => {
+    if (!confirmClear) {
+      setConfirmClear(true);
+      clearTimerRef.current = setTimeout(() => {
+        setConfirmClear(false);
+      }, 3000);
+    } else {
+      if (clearTimerRef.current) clearTimeout(clearTimerRef.current);
+      clearCart();
+      setConfirmClear(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -72,7 +95,13 @@ export default function CartPage() {
           <div className={styles.itemsList}>
             <div className={styles.listHeader}>
               <h2 className={styles.listTitle}>Cart Items</h2>
-              <button className={styles.clearBtn} onClick={clearCart}>Clear all</button>
+              <button
+                className={`${styles.clearBtn} ${confirmClear ? styles.clearConfirming : ''}`}
+                onClick={handleClearClick}
+                aria-label={confirmClear ? "Click to confirm clearing cart" : "Clear all items in cart"}
+              >
+                {confirmClear ? "Click to confirm" : "Clear all"}
+              </button>
             </div>
 
             {items.map(item => {
