@@ -72,6 +72,13 @@
 }
 .clearBtn:hover { border-color: #c01818; color: #c01818; }
 
+.clearBtnConfirm {
+  background: #fff0f0;
+  border-color: #c01818;
+  color: #c01818;
+  font-weight: 500;
+}
+
 .qtyControl {
   display: flex;
   align-items: center;
